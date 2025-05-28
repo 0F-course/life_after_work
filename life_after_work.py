@@ -10,10 +10,21 @@ from plotly.io import templates
 templates.default = 'none'
 
 
-def print_fig(name, width=600, height=360):
+def print_fig(name, width=1000, height=650):
     fig.update_layout(width=width, height=height)
     fig.write_image(f'images/{name}.png')
-    fig.write_html(f'plots/{name}.html', include_plotlyjs='cns')
+    with open(f'plots/{name}.html', 'w') as fh:
+        fh.write(
+f'''<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body style="background-color: #6aa4c8; height: 900px; display: flex; justify-content: center; align-items: center;">
+        { fig.to_html(full_html=False, include_plotlyjs='cns') }
+    </body>
+</html>'''
+        )
 
 def select_countries(df, column):
     
@@ -130,7 +141,7 @@ fig = px.box(
 )
 fig.update_xaxes(type='category')
 fig.update_layout(width=500, height=600)
-print_fig('HALEvsLifeExpectancy', 500, 600)
+print_fig('HALEvsLifeExpectancy', 500, 700)
 
 # Create plot with expected years lived after retirement
 fig = px.box(
@@ -138,7 +149,7 @@ fig = px.box(
     title='Average years left after retirement',
     labels=label_dic             
 )
-print_fig('LifeAfterRetirement', 500, 600)
+print_fig('LifeAfterRetirement')
 
 # Create plot with yars after retiremnt per country
 countries = select_countries(df, 'Retired')
@@ -159,7 +170,7 @@ fig = px.scatter(
     labels=label_dic,
     hover_name='Entity'
 )
-print_fig('Retirement_vs_Expectancy', height=500)
+print_fig('Retirement_vs_Expectancy', height=700)
 
 print('\n\U0001f389',
       'All good! Check the images and plot folders to see the figures.',
