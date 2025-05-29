@@ -137,7 +137,8 @@ print_fig('RetirementAge')
 fig = px.box(
     life, x='Year', y='Sick',
     title='Years lived not in "full health"',
-    labels=label_dic
+    labels=label_dic,
+    hover_name='Entity'
 )
 fig.update_xaxes(type='category')
 fig.update_layout(width=500, height=600)
@@ -147,7 +148,8 @@ print_fig('HALEvsLifeExpectancy', 500, 700)
 fig = px.box(
     df, x='Year', y='Retired',
     title='Average years left after retirement',
-    labels=label_dic             
+    labels=label_dic,
+    hover_name='Entity'
 )
 print_fig('LifeAfterRetirement')
 
