@@ -11,7 +11,7 @@ templates.default = 'none'
 
 
 def print_fig(name, width=1000, height=650):
-    fig.update_layout(width=width, height=height)
+    fig.update_layout(width=width, height=height, font_size=20)
     fig.write_image(f'images/{name}.png')
     with open(f'plots/{name}.html', 'w') as fh:
         fh.write(
